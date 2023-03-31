@@ -55,6 +55,8 @@ const resolvers = {
           title,
           description,
           authors,
+          image,
+          link
         });
 
         await User.findOneAndUpdate(
@@ -73,6 +75,8 @@ const resolvers = {
           title,
           description,
           authors,
+          image,
+          link
         });
 
         await User.findOneAndUpdate(

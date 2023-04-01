@@ -29,7 +29,7 @@ export const SAVE_BOOK = gql`
    saveBook(title: $title) {
     bookId
     authors
-    desription
+    description
     title
     image
     string
@@ -42,7 +42,7 @@ export const REMOVE_BOOK = gql`
     removeBook(thoughtId: $bookId) {
         bookId
         authors
-        desription
+        description
         title
         image
         string

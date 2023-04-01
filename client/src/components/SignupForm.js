@@ -3,14 +3,45 @@ import { Form, Button, Alert } from 'react-bootstrap';
 
 import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
+import { useMutation, useQuery } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+import { GET_ME } from '../utils/queries';
 
-const SignupForm = () => {
+const [addUser, {error}] = useMutation(ADD_USER, {
+  update(cache, { data: { addUser } }) {
+    try {
+      const { me } = cache.readQuery({ query: GET_ME });
+
+      cache.writeQuery({
+        query: GET_ME,
+        data: { me: [addUser, ...me ]},
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  },
+})
+
+const SignupForm = async () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+  try {
+    const { data } = await addUser({
+      variables: { ...formState },
+    });
+
+    setFormState({
+      username: " ",
+      email: " ",  
+      password: " ",
+    });
+  } catch (err) {
+    console.error(err);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

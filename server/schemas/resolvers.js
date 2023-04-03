@@ -4,16 +4,16 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('books')
-    },
-    books: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return bookSchema.find(params).sort({ createdAt: -1 });
-    },
-    book: async (parent, { bookId }) => {
-      return bookSchema.findOne({ _id: bookId });
-    },
+    // user: async (parent, { username }) => {
+    //   return User.findOne({ username }).populate('books')
+    // },
+    // books: async (parent, { username }) => {
+    //   const params = username ? { username } : {};
+    //   return bookSchema.find(params).sort({ createdAt: -1 });
+    // },
+    // book: async (parent, { bookId }) => {
+    //   return bookSchema.findOne({ _id: bookId });
+    // },
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('thoughts');
